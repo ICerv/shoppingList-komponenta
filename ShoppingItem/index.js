@@ -14,3 +14,15 @@ export const ShoppingItem = (props) => {
     </li>
   `;
 };
+
+element.querySelector('button').addEventListener('click', () => {
+  fetch(`https://apps.kodim.cz/daweb/shoplist/api/weeks/0/days/mon/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ done: !done }),
+  })
+    .then((response) => response.json())
+    .then((data) => element.replaceWith(ShoppingItem(data.results)));
+});
